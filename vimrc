@@ -11,6 +11,9 @@ let mapleader = ","
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" Get rid of automatting comment on new line
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 " Pathogen
 filetype off " Pathogen needs to run before plugin indent on
 call pathogen#runtime_append_all_bundles()
@@ -21,9 +24,11 @@ filetype plugin indent on
 "-------------------------------------------------
 " The all important color scheme
 if &t_Co >= 256 || has("gui_running")
-   colorscheme molokai
-   set columns=90
+   set background=dark
+   colorscheme solarized
+   set columns=120
    set guifont=Inconsolata:h14
+   set guioptions-=L
 endif
 
 if &t_Co > 2 || has("gui_running")
@@ -50,9 +55,9 @@ set copyindent
 
 " wrapping
 set wrap
-set textwidth=79
+set textwidth=90
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=92
 
 " search options
 set hlsearch
@@ -88,8 +93,19 @@ nnoremap k gk
 nmap <silent> ,/ :nohlsearch<CR>
 
 " for easier window splitting
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>s <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" for plugins
+nnoremap <leader>a :Ack 
+" let g:EasyMotion_leader_key = '<Leader>'
+
+" for NERDtree
+let NERDTreeChristmasTree=0
+let NERDTreeChDirMode=1
+nmap <silent> <c-n> :NERDTreeToggle<CR>
+" nnoremap <leader>n :NERDTree ~/<CR> <bar> :cd ~/<CR>
+nnoremap <leader>p :NERDTree ~/Documents/Razorback/Server<CR>
