@@ -16,7 +16,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Pathogen
 filetype off " Pathogen needs to run before plugin indent on
-call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 filetype plugin indent on
 
@@ -24,16 +24,12 @@ filetype plugin indent on
 "-------------------------------------------------
 " The all important color scheme
 if &t_Co >= 256 || has("gui_running")
+   syntax enable
    set background=dark
+   let g:solarized_termcolors=256
    colorscheme solarized
    set columns=120
-   set guifont=Inconsolata:h14
    set guioptions-=L
-endif
-
-if &t_Co > 2 || has("gui_running")
-   " switch syntax highlighting on, when the terminal has colors
-   syntax on
 endif
 
 " SETTINGS
