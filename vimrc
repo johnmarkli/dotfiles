@@ -24,9 +24,10 @@ filetype plugin indent on
 "-------------------------------------------------
 " The all important color scheme
 if &t_Co >= 256 || has("gui_running")
+   let g:solarized_termcolors=256
+   let g:solarized_termtrans=1
    syntax enable
    set background=dark
-   let g:solarized_termcolors=256
    colorscheme solarized
    set columns=120
    set guioptions-=L
