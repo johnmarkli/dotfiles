@@ -11,8 +11,6 @@ let mapleader = ","
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" Get rid of automatting comment on new line
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Pathogen
 filetype off " Pathogen needs to run before plugin indent on
@@ -103,3 +101,8 @@ let NERDTreeChDirMode=1
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 " nnoremap <leader>n :NERDTree ~/<CR> <bar> :cd ~/<CR>
 " nnoremap <leader>p :NERDTree ~/Documents/Razorback/Server<CR>
+
+set mouse=a
+
+" Get rid of automatting comment on new line
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
