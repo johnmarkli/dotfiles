@@ -29,8 +29,6 @@ if &t_Co >= 256 || has("gui_running")
    syntax enable
    set background=dark
    colorscheme solarized
-   set columns=120
-   set guioptions-=L
 endif
 
 " SETTINGS
@@ -98,11 +96,10 @@ nnoremap <C-l> <C-w>l
 
 " for plugins
 nnoremap <leader>a :Ack 
-" let g:EasyMotion_leader_key = '<Leader>'
 
 " for NERDtree
 let NERDTreeChristmasTree=0
 let NERDTreeChDirMode=1
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 " nnoremap <leader>n :NERDTree ~/<CR> <bar> :cd ~/<CR>
-nnoremap <leader>p :NERDTree ~/Documents/Razorback/Server<CR>
+" nnoremap <leader>p :NERDTree ~/Documents/Razorback/Server<CR>
