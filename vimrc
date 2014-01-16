@@ -52,7 +52,7 @@ set copyindent
 set wrap
 set textwidth=90
 set formatoptions=qrn1
-set colorcolumn=92
+" set colorcolumn=92
 
 " search options
 set hlsearch
