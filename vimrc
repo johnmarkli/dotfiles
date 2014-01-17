@@ -14,7 +14,7 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Pathogen
 filetype off " Pathogen needs to run before plugin indent on
-call pathogen#incubate()
+execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 filetype plugin indent on
 
@@ -101,6 +101,7 @@ let NERDTreeChDirMode=1
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 " nnoremap <leader>n :NERDTree ~/<CR> <bar> :cd ~/<CR>
 " nnoremap <leader>p :NERDTree ~/Documents/Razorback/Server<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 set mouse=a
 
