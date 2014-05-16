@@ -23,7 +23,7 @@ export LANGUAGE=en_US.UTF-8
 export LC_CTYPE=UTF-8
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-source ~/.nvm/nvm.sh
+#source ~/.nvm/nvm.sh
 export PATH=$HOME/.local/bin:$PATH
 export npm_config_userconfig=$HOME/.config/npmrc
 export PATH=$HOME/local/bin:$PATH
