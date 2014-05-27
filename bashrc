@@ -11,7 +11,7 @@ function parse_git_branch {
 export CLICOLOR=1
 export EDITOR='vim -f'
 
-export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$(parse_git_branch)\$ "
+export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$(parse_git_branch)\\n$ "
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -23,7 +23,7 @@ export LANGUAGE=en_US.UTF-8
 export LC_CTYPE=UTF-8
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-source ~/.nvm/nvm.sh
+# source ~/.nvm/nvm.sh
 export PATH=$HOME/.local/bin:$PATH
 export npm_config_userconfig=$HOME/.config/npmrc
 export PATH=$HOME/local/bin:$PATH

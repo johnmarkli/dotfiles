@@ -41,7 +41,8 @@ NeoBundle 'tpope/vim-repeat' " proper repeating in vim
 NeoBundle 'jelera/vim-javascript-syntax' " better js support
 NeoBundle 'kien/ctrlp.vim' " better js support
 NeoBundle 'Raimondi/delimitMate' " auto-complete for quotes, parens, brackets, etc.
-NeoBundle 'othree/javascript-libraries-syntax.vim' " auto-complete for quotes, parens, brackets, etc.
+NeoBundle 'othree/javascript-libraries-syntax.vim' " js syntax highlighting
+NeoBundle 'christoomey/vim-tmux-navigator' " allow better vim tmux navigation
 
 NeoBundle 'scrooloose/nerdtree' " file explorer
 let NERDTreeChristmasTree=0
@@ -163,14 +164,22 @@ nnoremap j gj
 nnoremap k gk
 
 " to clear highlight press , then /
-nmap <silent> ,/ :nohlsearch<CR>
+nmap <silent> <leader>/ :nohlsearch<CR>
 
 " for easier window splitting
 nnoremap <leader>s <C-w>v<C-w>l
-nnoremap <T-h> <C-w>h
-nnoremap <T-j> <C-w>j
-nnoremap <T-k> <C-w>k
-nnoremap <T-l> <C-w>l
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" more natural split
+set splitbelow
+set splitright
+
+" resize splits by sane amount
+nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " for plugins
 nnoremap <leader>a :Ack 
