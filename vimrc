@@ -123,6 +123,7 @@ set nobackup
 set noswapfile
 set fileformats+=mac " Support all kind of EOLs by default.
 set shortmess+=I " Don't display the intro message on starting Vim.
+set number! " Turn off line numbering"
 
 " set paste mode for dumb pasting
 set pastetoggle=<F2>
