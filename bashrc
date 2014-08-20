@@ -1,4 +1,4 @@
-[ -z "$PS1" ] && return
+[ -z "$PS2" ] && return
 
 function parse_git_dirty {
   git diff --no-ext-diff --quiet --exit-code &> /dev/null || echo "*"
@@ -17,14 +17,9 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias gs='git status'
+alias gco='git checkout'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_CTYPE=UTF-8
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-# source ~/.nvm/nvm.sh
-export PATH=$HOME/.local/bin:$PATH
-export npm_config_userconfig=$HOME/.config/npmrc
-export PATH=$HOME/local/bin:$PATH
-export PATH=$HOME/local/bin:$PATH
