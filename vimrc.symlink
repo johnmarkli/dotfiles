@@ -3,38 +3,28 @@
 
 " Neo Bundle
 "------------------------------------------------------------------------------------
-" Turn off filetype plugins before bundles init
-filetype off
-" Auto installing NeoNeoBundle
-let isNpmInstalled = executable("npm")
-let iCanHazNeoBundle=1
-let neobundle_readme=expand($HOME.'/.vim/bundle/neobundle.vim/README.md')
-if !filereadable(neobundle_readme)
-  if !isNpmInstalled
-    echo "==============================================="
-    echo "Your need to install npm to enable all features"
-    echo "==============================================="
-  endif
-  echo "Installing NeoBundle.."
-  silent !mkdir -p $HOME/.vim/bundle
-  silent !git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-  let iCanHazNeoBundle=0
-endif
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 
-" Set up Neo Bundle
-set nocompatible
 if has('vim_starting')
-  set nocompatible               " Be iMproved
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+
+  " Required:
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+
 " Required:
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-NeoBundleFetch 'Shougo/neobundle.vim' " Let NeoBundle manage NeoBundle
-"------------------------------------------------------------------------------------
-
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
 "-------------------------------------
 
 "Commands
@@ -61,7 +51,6 @@ NeoBundle 'Raimondi/delimitMate' " auto-complete for quotes, parens, brackets, e
 "Ruby/Rails specific
 NeoBundle 'tpope/vim-rails' " add vim support
 NeoBundle 'vim-ruby/vim-ruby' " add ruby support
-NeoBundle 'tpope/vim-endwise' " auto add end in ruby
 
 "JavaScript/HTML/CSS specific
 NeoBundle 'pangloss/vim-javascript' "vim javascript syntax
@@ -79,7 +68,7 @@ let g:airline_theme='molokai'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_z=''
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 
 NeoBundle 'scrooloose/nerdtree' " file explorer
 let NERDTreeChristmasTree=0
@@ -90,21 +79,18 @@ nmap <silent> <c-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 NeoBundle 'junegunn/goyo.vim' " Distraction free writing mode
- 
+
 "-------------------------------------
 
-" Installing bundles for the first time
-if iCanHazNeoBundle == 0
-  echo 'Installing Bundles, please ignore key map error messages'
-  :NeoBundleInstall
-  :so $MYVIMRC
-endif
+call neobundle#end()
 
-filetype plugin indent on " Enable Indent in plugins after updating runtime path by NeoBundle
+" Required:
+filetype plugin indent on
 
-NeoBundleCheck " Install bundles if not already installed
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck"
 "------------------------------------------------------------------------------------
-
 
 
 " LOOK AND FEEL
@@ -186,9 +172,9 @@ endif
 
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
-  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
-  \ }
+      \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
+      \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+      \ }
 
 " KEY REMAPS
 "------------------------------------------------------------------------------------
