@@ -1,0 +1,54 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+PATH="/usr/local/mysql/bin:$PATH"
+bindkey -v
+
+#For peepcode zsh teme
+# RVM
+
+# Colors
+autoload -U colors && colors
+setopt prompt_subst
+
+# Prompt
+local smiley="%(?,%{$fg[green]%}☺%{$reset_color%},%{$fg[red]%}☹%{$reset_color%})"
+
+PROMPT='
+%~
+${smiley}  %{$reset_color%}'
+
+RPROMPT='%{$fg[white]%} $(~/.rvm/bin/rvm-prompt)$(${ZDOTDIR:-$HOME}/.zprezto/peepcode-bin/git-cwd-info)%{$reset_color%}'
+
+# Replace the above with this if you use rbenv
+# RPROMPT='%{$fg[white]%} $(~/.rbenv/bin/rbenv version-name)$(${ZDOTDIR:-$HOME}/.zprezto/peepcode-bin/git-cwd-info.rb)%{$reset_color%}'
+
+# Show completion on first TAB
+setopt menucomplete
+
+# Load completions for Ruby, Git, etc.
+autoload compinit
+compinit
+
+# Fixes subl shortcut bug
+alias -g subl=subl
+
+alias -g gs="git status"
+
+alias -g ll="ls -latrh"
+export GOPATH=$HOME/go
+
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/Development/glassfish4/bin"
