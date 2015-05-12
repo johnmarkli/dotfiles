@@ -61,7 +61,6 @@ NeoBundle 'Raimondi/delimitMate' " auto-complete for quotes, parens, brackets, e
 "Ruby/Rails specific
 NeoBundle 'tpope/vim-rails' " add vim support
 NeoBundle 'vim-ruby/vim-ruby' " add ruby support
-NeoBundle 'tpope/vim-endwise' " auto add end in ruby
 
 "JavaScript/HTML/CSS specific
 NeoBundle 'pangloss/vim-javascript' "vim javascript syntax
@@ -76,10 +75,18 @@ NeoBundle 'christoomey/vim-tmux-navigator' " allow better vim tmux navigation
 " NeoBundle 'bling/vim-bufferline' " show buffers in bar
 NeoBundle 'bling/vim-airline'
 let g:airline_theme='molokai'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_section_z=''
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+set timeoutlen=1000 ttimeoutlen=0
+
+NeoBundle 'vim-coffee-script'
+
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+" let g:airline_section_z=''
+" let g:airline#extensions#tabline#enabled = 1
 
 NeoBundle 'scrooloose/nerdtree' " file explorer
 let NERDTreeChristmasTree=0
@@ -90,7 +97,7 @@ nmap <silent> <c-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 NeoBundle 'junegunn/goyo.vim' " Distraction free writing mode
- 
+
 "-------------------------------------
 
 " Installing bundles for the first time
@@ -186,9 +193,9 @@ endif
 
 " Ignore some folders and files for CtrlP indexing
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
-  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
-  \ }
+      \ 'dir':  '\.git$\|\.yardoc\|public$|log\|tmp$',
+      \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+      \ }
 
 " KEY REMAPS
 "------------------------------------------------------------------------------------
@@ -232,8 +239,8 @@ set splitbelow
 set splitright
 
 " resize splits by sane amount
-nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+" nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+" nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " for plugins
 nnoremap <leader>a :Ack 
@@ -243,3 +250,6 @@ set mouse=a
 
 " show insert mode on status line
 set laststatus=2
+
+" allow access to system clipboard OS X
+set clipboard=unnamed
