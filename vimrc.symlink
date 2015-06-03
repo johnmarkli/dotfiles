@@ -29,15 +29,15 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 "Commands
 NeoBundle 'tomtom/tcomment_vim' " makes commenting easier
-NeoBundle 'godlygeek/tabular' " better alignment
-NeoBundle 'rking/ag.vim' " faster text searching with the silver searcher
-NeoBundle 'tpope/vim-fugitive' " add git support
+"NeoBundle 'godlygeek/tabular' " better alignment
+"NeoBundle 'rking/ag.vim' " faster text searching with the silver searcher
+"NeoBundle 'tpope/vim-fugitive' " add git support
 NeoBundle 'airblade/vim-gitgutter' " show git status in gutter
 NeoBundle 'scrooloose/syntastic'
 
 "Language specific
-NeoBundle 'reedes/vim-pencil' " Writing mode
-NeoBundle 'fatih/vim-go'
+"NeoBundle 'reedes/vim-pencil' " Writing mode
+"NeoBundle 'fatih/vim-go'
 
 "Code display
 NeoBundle 'kien/ctrlp.vim' " better js support
@@ -54,7 +54,6 @@ NeoBundle 'vim-ruby/vim-ruby' " add ruby support
 
 "JavaScript/HTML/CSS specific
 NeoBundle 'pangloss/vim-javascript' "vim javascript syntax
-NeoBundle 'othree/javascript-libraries-syntax.vim' " js syntax highlighting
 NeoBundle 'othree/javascript-libraries-syntax.vim' " syntax highlighting for js libraries
 NeoBundle 'mattn/emmet-vim' " easier HTML
 NeoBundle 'burnettk/vim-angular' " add angular support
@@ -78,7 +77,7 @@ nmap <silent> <leader>f :NERDTreeFind<CR> " Display current file in the NERDTree
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-NeoBundle 'junegunn/goyo.vim' " Distraction free writing mode
+"NeoBundle 'junegunn/goyo.vim' " Distraction free writing mode
 
 "-------------------------------------
 
