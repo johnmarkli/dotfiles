@@ -228,3 +228,6 @@ set mouse=a
 
 " show insert mode on status line
 set laststatus=2
+
+" eliminate key lag
+set timeoutlen=1000 ttimeoutlen=0
