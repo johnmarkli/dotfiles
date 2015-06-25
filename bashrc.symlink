@@ -25,3 +25,9 @@ export LC_CTYPE=UTF-8
  [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 set -o vi
+
+# Configure better history
+shopt -s histappend
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+PROMPT_COMMAND='history -a'
