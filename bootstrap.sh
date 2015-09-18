@@ -113,7 +113,15 @@ install_dotfiles () {
   done
 }
 
+install_neobundle () {
+  info 'installing neobundle'
+  wget https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh
+  chmod +x ./install.sh
+  ./install.sh
+}
+
 install_dotfiles
+install_neobundle
 
 echo ''
 echo '  All installed!'
