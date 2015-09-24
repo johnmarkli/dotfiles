@@ -118,6 +118,7 @@ install_neobundle () {
   wget https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh
   chmod +x ./install.sh
   ./install.sh
+  rm ./install.sh
 }
 
 install_dotfiles
