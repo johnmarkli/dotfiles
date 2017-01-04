@@ -15,8 +15,7 @@ bind | split-window -h
 bind - split-window -v
 
 # mouse mode
-setw -g mode-mouse on
-set-option -g mouse-select-pane on
+set -g mouse on
 
 set -g base-index 1 # start window numbering from 1
 set -s escape-time 0 # no escape time for faster command sequences
