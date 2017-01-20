@@ -57,6 +57,9 @@ NeoBundle 'pangloss/vim-javascript' "vim javascript syntax
 NeoBundle 'othree/javascript-libraries-syntax.vim' " syntax highlighting for js libraries
 NeoBundle 'mattn/emmet-vim' " easier HTML
 NeoBundle 'burnettk/vim-angular' " add angular support
+NeoBundle 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+"
 
 "Interface
 NeoBundle 'tomasr/molokai' " molokai color theme
