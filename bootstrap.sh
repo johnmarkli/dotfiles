@@ -109,9 +109,21 @@ install_dotfiles () {
   for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
   do
     dst="$HOME/.$(basename "${src%.*}")"
+    info "$src"
+    info "$dst"
     link_file "$src" "$dst"
   done
 }
+
+setup() {
+  SRC="$1"
+  DST="$2"
+  echo "Installing $SRC..."
+
+  mkdir -p $(dirname "$DST")
+  ln -sfn "$PWD/dotfiles/$SRC" "$DST"
+}
+
 
 install_neobundle () {
   info 'installing neobundle'
@@ -122,6 +134,7 @@ install_neobundle () {
 }
 
 install_dotfiles
+setup ssh_config "$HOME/.ssh/config"
 install_neobundle
 
 echo ''

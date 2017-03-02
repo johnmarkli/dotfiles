@@ -1,0 +1,12 @@
+[user]
+  name = John Li
+  email = johnmarkli@gmail.com
+
+[color]
+  ui = true
+
+[core]
+  editor = vim
+
+[push]
+  default = simple

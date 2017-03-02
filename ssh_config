@@ -1,0 +1,19 @@
+Host prod.hs
+  HostName healthstorylines.com
+  User ubuntu
+
+Host staging.hs
+  HostName staging.healthstorylines.com
+  User ubuntu
+
+Host dev.hs
+  HostName dev.healthstorylines.com
+  User ubuntu
+
+Host prod.ps
+  HostName prod.patientstorylines.com
+  User ubuntu
+
+Host staging.ps
+  HostName staging.patientstorylines.com
+  User ubuntu
