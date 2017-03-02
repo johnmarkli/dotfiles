@@ -14,8 +14,14 @@ bind-key a send-prefix
 bind | split-window -h
 bind - split-window -v
 
-# mouse mode
-set -g mouse on
+# mouse mode tmux 2.1 or greater
+# set -g mouse 
+
+# mouse mode tmux 2.1 or less
+set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
 
 set -g base-index 1 # start window numbering from 1
 set -s escape-time 0 # no escape time for faster command sequences
