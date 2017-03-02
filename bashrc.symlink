@@ -31,3 +31,7 @@ shopt -s histappend
 HISTFILESIZE=1000000
 HISTSIZE=1000000
 PROMPT_COMMAND='history -a'
+
+export ANDROID_HOME=${HOME}/Library/Android/sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools

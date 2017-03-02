@@ -1,2 +1,6 @@
 # Load .bashrc if it exists
 test -f ~/.bashrc && source ~/.bashrc
+
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion

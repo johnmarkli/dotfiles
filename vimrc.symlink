@@ -33,7 +33,7 @@ NeoBundle 'tomtom/tcomment_vim' " makes commenting easier
 "NeoBundle 'rking/ag.vim' " faster text searching with the silver searcher
 "NeoBundle 'tpope/vim-fugitive' " add git support
 NeoBundle 'airblade/vim-gitgutter' " show git status in gutter
-NeoBundle 'scrooloose/syntastic'
+" NeoBundle 'scrooloose/syntastic'
 
 "Language specific
 "NeoBundle 'reedes/vim-pencil' " Writing mode
@@ -64,6 +64,7 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 "Interface
 NeoBundle 'tomasr/molokai' " molokai color theme
 NeoBundle 'christoomey/vim-tmux-navigator' " allow better vim tmux navigation
+NeoBundle 'tmux-plugins/vim-tmux-focus-events' " allow better vim tmux navigation
 " NeoBundle 'bling/vim-bufferline' " show buffers in bar
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
