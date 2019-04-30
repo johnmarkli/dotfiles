@@ -32,6 +32,7 @@ Host db.ps.hs
 Host prod.ps
   HostName prod.patientstorylines.com
   User ubuntu
+  IdentityFile ~/.ssh/ps-key.pem
 
 Host staging.ps
   HostName staging.patientstorylines.com

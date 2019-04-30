@@ -1,12 +1,21 @@
 [user]
-  name = John Li
-  email = johnmarkli@gmail.com
+	name = John Li
+	email = johnmarkli@gmail.com
 
 [color]
   ui = true
 
 [core]
   editor = vim
+	excludesfile = /Users/johnli/.gitignore_global
 
 [push]
   default = simple
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/johnli/.stCommitMsg
