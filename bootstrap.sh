@@ -136,9 +136,9 @@ setup() {
 install_dein () {
   info 'installing dein'
   curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/installer.sh
-  chmod +x ~/install.sh
+  chmod +x ~/installer.sh
   sh ~/installer.sh ~/.cache/dein
-  rm ~/install.sh
+  rm ~/installer.sh
 }
 
 install_dotfiles
