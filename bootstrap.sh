@@ -125,18 +125,27 @@ setup() {
 }
 
 
-install_neobundle () {
-  info 'installing neobundle'
-  wget https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh
-  chmod +x ./install.sh
-  ./install.sh
-  rm ./install.sh
+# install_neobundle () {
+#   info 'installing neobundle'
+#   wget https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh
+#   chmod +x ./install.sh
+#   ./install.sh
+#   rm ./install.sh
+# }
+
+install_dein () {
+  info 'installing dein'
+  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/installer.sh
+  chmod +x ~/install.sh
+  sh ~/installer.sh ~/.cache/dein
+  rm ~/install.sh
 }
 
 install_dotfiles
 # setup ssh_config "$HOME/.ssh/config"
-setup init.vim "$HOME/.config/nvim/init.vim"
+setup vimrc.symlink "$HOME/.config/nvim/init.vim"
 # install_neobundle
+install_dein
 
 echo ''
 echo '  All installed!'
