@@ -67,6 +67,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y neovim
+
+    curl -fsSL get.docker.com -o get-docker.sh
+    sh get-docker.sh
+    usermod -aG docker vagrant
+
     VAGRANT_HOME=/home/vagrant
     DOTFILE_PATH=$VAGRANT_HOME/dotfiles
     git clone https://github.com/johnmarkli/dotfiles.git $DOTFILE_PATH
