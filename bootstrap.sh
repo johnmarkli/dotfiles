@@ -134,7 +134,7 @@ install_neobundle () {
 }
 
 install_dotfiles
-setup ssh_config "$HOME/.ssh/config"
+# setup ssh_config "$HOME/.ssh/config"
 setup init.vim "$HOME/.config/nvim/init.vim"
 # install_neobundle
 
