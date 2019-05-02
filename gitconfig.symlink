@@ -2,20 +2,38 @@
 	name = John Li
 	email = johnmarkli@gmail.com
 
+[github]
+  user = johnmarkli
+
 [color]
   ui = true
 
 [core]
   editor = vim
-	excludesfile = /Users/johnli/.gitignore_global
 
 [push]
   default = simple
+
+[alias]
+  a      = add
+  d      = diff
+  ca     = commit -a
+  cam    = commit -am
+  cm     = commit -m
+  s      = status
+  pom    = push origin master
+  pog    = push origin gh-pages
+  puom   = pull origin master
+  puog   = pull origin gh-pages
+  cob    = checkout -b
+  co     = checkout
+  l      = log --oneline --decorate --graph
+  lall   = log --oneline --decorate --graph --all
+  ls     = log --oneline --decorate --graph --stat
+  lt     = log --graph --decorate --pretty=format:'%C(yellow)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset'
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-[commit]
-	template = /Users/johnli/.stCommitMsg
