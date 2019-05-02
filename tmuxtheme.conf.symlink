@@ -24,7 +24,7 @@ set -g status-right "session #S on #h"
 # set -g window-status-format "#I:#W#F"
 # set -g window-status-current-format "#I:#W#F"
 set -g window-status-format "#I:#W"
-set -g window-status-current-format "#I:#W"
+set -g window-status-current-format "#I:#W#F"
 
 # Current window status
 set -g window-status-current-bg $MAIN_FG_COLOR
