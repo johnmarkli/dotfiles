@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo Create Pull Request
+
+reviewer=rohit-moza
+default_branch=develop
+organization_name=SelfCareCatalysts
+
+# prompt branch name if on develop
+branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+if [ "$branch" == "develop" ]
+ then
+	read -r -p 'New branch name: ' branch
+	git checkout -b $branch
+fi
+
+# stage files
+git add -A
+
+# prompt for commit message
+read -r -p 'Commit message: ' commit_msg  # prompt user for commit message
+
+# commit
+git commit -m "$commit_msg"
+
+# push to origin
+git push -u origin $branch
+
+hub pull-request --base $organization_name:$default_branch --browse --reviewer $reviewer

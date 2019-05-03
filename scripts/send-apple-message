@@ -1,0 +1,18 @@
+#!/bin/bash
+
+buddy='Elisa Costa'
+
+sqlite3 ~/Library/Messages/chat.db 'select user, text from (select case when message.is_from_me then "Me    " else "Elisa " end as user, message.date as date, message.text as text from message inner join handle on handle.ROWID = message.handle_id order by date desc limit 10) order by date asc;'
+
+if [ $# -eq 0 ]
+then
+  # Prompt for message
+  read -e -r -p 'Message to send:
+> ' message
+else
+  message=$1
+fi
+
+# Send message
+script='tell application "Messages" to send "'"$message"'" to buddy "'"$buddy"'"'
+osascript -e "$script"

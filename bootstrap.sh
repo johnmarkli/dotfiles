@@ -144,6 +144,8 @@ install_dein () {
 install_dotfiles
 # setup ssh_config "$HOME/.ssh/config"
 setup vimrc.symlink "$HOME/.config/nvim/init.vim"
+setup scripts/create-pr "$HOME/bin/create-pr"
+setup scripts/send-apple-message "$HOME/bin/send-apple-message"
 # install_neobundle
 install_dein
 
