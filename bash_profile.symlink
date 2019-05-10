@@ -1,8 +1,8 @@
 # Load .bashrc if it exists
 [ -f ~/.bashrc ] && source ~/.bashrc
 
-[ ! -z $RBENV_SHELL ] && eval "$(rbenv init -)"
-[ ! -z $NODENV_SHELL ] && eval "$(nodenv init -)"
+command -v rbenv > /dev/null && eval "$(rbenv init -)"
+command -v nodenv > /dev/null && eval "$(nodenv init -)"
 command -v python3.7 > /dev/null && export PATH=~/Library/Python/3.7/bin:$PATH
 command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 [ -d $HOME/Library/Android/sdk ] && export ANDROID_HOME=$HOME/Library/Android/sdk
