@@ -1,5 +1,7 @@
 # install software
 sudo apt-get update
+sudo apt-get install silversearcher-ag
+sudo apt-get zsh
 
 # install neovim
 sudo wget -O nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -P /usr/local/bin
