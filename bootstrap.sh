@@ -106,7 +106,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=${BACKUP_ALL:-false} skip_all=false
 
-  for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
+  for src in $(find "$DOTFILES_ROOT" -maxdepth 3 -name '*.symlink')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     info "$src"
@@ -143,9 +143,8 @@ install_dein () {
 
 install_dotfiles
 # setup ssh_config "$HOME/.ssh/config"
-setup vimrc.symlink "$HOME/.config/nvim/init.vim"
-setup scripts/create-pr "$HOME/bin/create-pr"
-setup scripts/send-apple-message "$HOME/bin/send-apple-message"
+setup configs/vimrc.symlink "$HOME/.config/nvim/init.vim"
+setup bin "$HOME/bin"
 # install_neobundle
 install_dein
 
