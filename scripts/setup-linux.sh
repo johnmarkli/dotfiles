@@ -2,9 +2,8 @@
 sudo apt-get update
 
 # install neovim
-wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -P ~/bin
-chmod u+x ~/bin/nvim.appimage
-mv ~/bin/nvim.appimage ~/bin/nvim
+sudo wget -O nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -P /usr/local/bin
+sudo chmod +x /usr/local/bin/nvim
 
 # install docker
 sudo sh -c "$(curl -fsSL https://get.docker.com)"
