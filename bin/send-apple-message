@@ -1,6 +1,7 @@
 #!/bin/bash
 
-buddy='Elisa Costa'
+buddy='costa.elisaf@gmail.com'
+service_name='E:johnmarkli@gmail.com'
 
 sqlite3 ~/Library/Messages/chat.db 'select user, text from (select case when message.is_from_me then "Me    " else "Elisa " end as user, message.date as date, message.text as text from message inner join handle on handle.ROWID = message.handle_id order by date desc limit 10) order by date asc;'
 
@@ -14,5 +15,5 @@ else
 fi
 
 # Send message
-script='tell application "Messages" to send "'"$message"'" to buddy "'"$buddy"'"'
+script='tell application "Messages" to send "'"$message"'" to buddy "'"$buddy"'" of service "'"$service_name"'"'
 osascript -e "$script"
