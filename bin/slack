@@ -1,8 +1,0 @@
-#!/bin/bash
-
-slack-cli -s $1 -l 5
-
-read -e -r -p 'Message to send:
-> ' message
-
-slack-cli -d $1 "$message"

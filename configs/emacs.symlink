@@ -1,0 +1,136 @@
+;; Bootstrap `use-package'
+(require 'package)
+(setq package-enable-at-startup nil)
+
+(setq package-archives (append package-archives
+			       '(("org" . "http://orgmode.org/elpa/")
+				 ("melpa" . "http://melpa.org/packages/"))))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(use-package diminish :ensure t)
+
+;; Enable use-package
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)                ;; if you use any :bind variant
+
+(if (member "Input" (font-family-list))
+    (set-face-attribute 'default nil :font "InputMonoNarrow 12"))
+
+(when (window-system)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
+
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode))
+
+(use-package evil-commentary
+  :ensure t
+  :config
+  (evil-commentary-mode))
+
+(use-package magit
+  :ensure t)
+
+(use-package helm
+  :demand t
+  :init
+  (setq helm-M-x-fuzzy-match t)
+  (setq helm-buffers-fuzzy-matching t)
+  (setq helm-recentf-fuzzy-match    t)
+  :bind (("M-x" . helm-M-x)
+	 ("C-x b" . helm-mini)
+	 ("C-x C-f" . helm-find-files)
+	 ("C-x f" . helm-recentf)
+	 ("M-y" . 'helm-show-kill-ring)
+	 )
+  :config
+  (helm-mode 1))
+
+(use-package projectile
+  :ensure t
+  :init
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-completion-system 'helm)
+  (projectile-global-mode)
+  (helm-projectile-on)
+  (setq projectile-enable-caching nil)
+  :diminish (projectile-mode))
+
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
+
+
+
+;;;
+;;; Org Mode
+;;;
+(add-to-list 'load-path (expand-file-name "~/git/org-mode/lisp"))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(require 'org)
+(with-eval-after-load 'org
+  (org-babel-do-load-languages 'org-babel-load-languages '((ruby . t))))
+(setq org-log-done 'time)
+(setq org-ellipsis "⤵")
+;;
+;; Stan
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-ca" 'org-agenda)
+
+(use-package org-bullets
+  :ensure t
+  :commands (org-bullets-mode)
+  :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package htmlize
+  :ensure t)
+
+(use-package emojify
+  :ensure t
+  :init (add-hook 'after-init-hook #'global-emojify-mode))
+
+;; (use-package molokai-theme
+;;   :ensure t
+;;   :init
+;;   (load-theme 'molokai-theme-kit t))
+(use-package dracula-theme 
+  :ensure t
+  :load-path "themes"
+  :init
+  ;; (setq molokai-theme-kit t)
+  :config
+  (load-theme 'dracula t)
+  )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("~/org/1.org")))
+ '(package-selected-packages
+   (quote
+    (emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
