@@ -105,7 +105,7 @@ alias gd='git diff'
 alias gco='git checkout'
 alias ll='ls -latrh'
 
-set -o vi
+# set -o vi
 
 command -v rbenv > /dev/null && eval "$(rbenv init -)"
 command -v nodenv > /dev/null && eval "$(nodenv init -)"

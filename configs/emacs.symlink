@@ -26,6 +26,43 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
+;; Window management
+(defun delete-window-balance ()
+  "Delete window and rebalance the remaining ones."
+  (interactive)
+  (delete-window)
+  (balance-windows))
+(defun split-window-below-focus ()
+  "Split window horizontally and move focus to other window."
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+ 
+(defun split-window-right-focus ()
+  "Split window vertically and move focus to other window."
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+(setq vc-follow-symlinks nil)
+(require 'ox-md)
+
+;; Terminal settings
+(setq explicit-shell-file-name "/bin/bash")
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
+  (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+(defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
+  (if (memq (process-status proc) '(signal exit))
+      (let ((buffer (process-buffer proc)))
+        ad-do-it
+        (kill-buffer buffer))
+    ad-do-it))
+(ad-activate 'term-sentinel)
+
 
 (use-package evil
   :ensure t
@@ -33,6 +70,8 @@
   (setq evil-want-C-u-scroll t)
   :config
   (evil-mode))
+
+(evil-set-initial-state 'term-mode 'emacs)
 
 (use-package evil-commentary
   :ensure t
@@ -74,7 +113,11 @@
   :config
   (helm-projectile-on))
 
-
+;; (use-package ace-window
+;;   :ensure t
+;;   :config
+;;   (global-set-key (kbd "M-o") 'ace-window)
+;;   (global-set-key [remap other-window] 'ace-window))
 
 ;;;
 ;;; Org Mode
@@ -101,6 +144,15 @@
 (use-package htmlize
   :ensure t)
 
+(use-package reveal-in-osx-finder
+  :ensure t)
+
+(use-package go-mode
+  :ensure t)
+
+(use-package dockerfile-mode
+  :ensure t)
+
 (use-package emojify
   :ensure t
   :init (add-hook 'after-init-hook #'global-emojify-mode))
@@ -123,10 +175,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(global-display-line-numbers-mode nil)
+ '(line-number-mode nil)
  '(org-agenda-files (quote ("~/org/1.org")))
  '(package-selected-packages
    (quote
-    (emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+    (dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

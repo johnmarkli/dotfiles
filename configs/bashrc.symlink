@@ -37,3 +37,6 @@ PROMPT_COMMAND='history -a'
 
 # Set up bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+[ -d $HOME/bin ] && export PATH=$PATH:$HOME/bin
+
