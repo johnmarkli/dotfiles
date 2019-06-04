@@ -49,6 +49,10 @@
 (setq vc-follow-symlinks nil)
 (require 'ox-md)
 
+(setq ls-lisp-dirs-first t)
+(setq ls-lisp-use-insert-directory-program nil)
+(require 'ls-lisp)
+
 ;; Terminal settings
 (setq explicit-shell-file-name "/bin/bash")
 (defvar my-term-shell "/bin/bash")
@@ -166,6 +170,25 @@
   :ensure t
   :init (add-hook 'after-init-hook #'global-emojify-mode))
 
+(use-package dired-subtree
+  :ensure t)
+
+(use-package dired-sidebar
+  :ensure t
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+  :commands (dired-sidebar-toggle-sidebar))
+
+(when (string= system-type "darwin")       
+  (setq dired-use-ls-dired nil))
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 ;; (use-package molokai-theme
 ;;   :ensure t
 ;;   :init
@@ -189,7 +212,7 @@
  '(org-agenda-files (quote ("~/org/1.org")))
  '(package-selected-packages
    (quote
-    (dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+    (markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
