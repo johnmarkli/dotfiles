@@ -178,7 +178,7 @@
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
   :commands (dired-sidebar-toggle-sidebar))
 
-(when (string= system-type "darwin")       
+(when (string= system-type "darwin")
   (setq dired-use-ls-dired nil))
 
 (use-package markdown-mode
@@ -189,11 +189,15 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 ;; (use-package molokai-theme
 ;;   :ensure t
 ;;   :init
 ;;   (load-theme 'molokai-theme-kit t))
-(use-package dracula-theme 
+(use-package dracula-theme
   :ensure t
   :load-path "themes"
   :init
@@ -212,7 +216,7 @@
  '(org-agenda-files (quote ("~/org/1.org")))
  '(package-selected-packages
    (quote
-    (markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+    (flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
