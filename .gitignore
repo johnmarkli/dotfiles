@@ -3,3 +3,4 @@
 .vagrant/
 ssh_config
 .DS_Store
+bin/

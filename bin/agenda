@@ -1,6 +1,0 @@
-#!/bin/bash
-# while true
-# do
-  gcalcli agenda --calendar='J+E' --calendar='john@selfcarecatalysts.com' --calendar='johnmarkli@gmail.com'
-  # sleep 900
-# done
