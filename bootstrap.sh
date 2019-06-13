@@ -144,6 +144,7 @@ install_dein () {
 install_dotfiles
 # setup ssh_config "$HOME/.ssh/config"
 setup configs/vimrc.symlink "$HOME/.config/nvim/init.vim"
+setup configs/dracula.tmux.symlink "$HOME/.config/tmux/themes/dracula.tmux"
 setup bin "$HOME/bin"
 # install_neobundle
 install_dein

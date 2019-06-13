@@ -1,12 +1,4 @@
+#!/bin/bash
+
 # Load .bashrc if it exists
 [ -f ~/.bashrc ] && source ~/.bashrc
-
-command -v rbenv > /dev/null && eval "$(rbenv init -)"
-command -v nodenv > /dev/null && eval "$(nodenv init -)"
-command -v python3.7 > /dev/null && export PATH=~/Library/Python/3.7/bin:$PATH
-command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
-[ -d $HOME/Library/Android/sdk ] && export ANDROID_HOME=$HOME/Library/Android/sdk
-[ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/emulator
-[ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/tools
-[ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/tools/bin
-[ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/platform-tools

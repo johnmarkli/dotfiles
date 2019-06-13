@@ -1,60 +1,115 @@
-MAIN_BG_COLOR=black
-MAIN_FG_COLOR=colour253
+separator=''
+background='#282a36'
+selection='#44475a'
+foreground='#f8f8f2'
+comment='#6272a4'
+cyan='#8be9fd'
+green='#50fa7b'
+orange='#ffb86c'
+pink='#ff79c6'
+purple='#bd93f9'
+red='#ff5555'
+yellow='#f1fa8c'
 
-# Status update interval
-set -g status-interval 15
+# status
+tmux set-option -g status-justify "left"
+tmux set-option -g status "on"
+tmux set-option -g status-attr "none"
+tmux set-option -g status-bg "${background}"
 
-set -g status-style bg=$MAIN_BG_COLOR,fg=$MAIN_FG_COLOR,left-bg=$MAIN_BG_COLOR,left-fg=$MAIN_FG_COLOR,right-bg=$MAIN_BG_COLOR,right-fg=$MAIN_FG_COLOR
+# messages
+tmux set-option -g message-fg "${foreground}"
+tmux set-option -g message-bg "${background}"
+tmux set-option -g message-command-fg "${comment}"
+tmux set-option -g message-command-bg "${background}"
 
-# Left side of status bar
-set -g status-left-length 2
-# set -g status-left "[#S]"
-set -g status-left "|  "
+# panes
+tmux set-option -g pane-active-border-fg "${purple}"
+tmux set-option -g pane-active-border-bg "${background}"
+tmux set-option -g pane-border-fg "${selection}"
+tmux set-option -g pane-border-bg "${background}"
 
-# Right side of status bar
-set -g status-right-length 40
-set -g status-right "session #S on #h"
+# selection
+tmux set-option -g mode-style "fg=${foreground},bg=${background}"
 
-# Window status
-# set -g window-status-format "#I:#W#F"
+# active / inactive pane bg
+tmux set-option -g window-style "bg=${background}"
+tmux set-option -g window-active-style "bg=${background}"
+
+# window status
+tmux set-window-option -g window-status-fg "${foreground}"
+tmux set-window-option -g window-status-attr "none"
+tmux set-window-option -g window-status-activity-bg "${background}"
+tmux set-window-option -g window-status-activity-attr "none"
+tmux set-window-option -g window-status-activity-fg "${orange}"
+tmux set-window-option -g window-status-separator ""
+tmux set-window-option -g window-status-bg "${background}"
+tmux set-window-option -g window-status-format "#[fg=${comment},bg=${background}] #W "
+tmux set-window-option -g window-status-current-format "#[bg=${background}, fg=${pink}] #{?window_zoomed_flag,(,}#W#{?window_zoomed_flag,),} "
+
+tmux set-option -g status-left-attr "none"
+tmux set-option -g status-left-length "100"
+tmux set-option -g status-right-attr "none"
+tmux set-option -g status-right-length "100"
+tmux set-option -g status-left "#[fg=${comment}] #S ${separator} "
+tmux set-option -g status-right "#[fg=${purple},bg=${background}]$USER@#h"
+# MAIN_BG_COLOR=black
+# MAIN_FG_COLOR=colour253
+
+# # Status update interval
+# set -g status-interval 15
+
+# set -g status-style bg=$MAIN_BG_COLOR,fg=$MAIN_FG_COLOR,left-bg=$MAIN_BG_COLOR,left-fg=$MAIN_FG_COLOR,right-bg=$MAIN_BG_COLOR,right-fg=$MAIN_FG_COLOR
+
+# # Left side of status bar
+# set -g status-left-length 2
+# # set -g status-left "[#S]"
+# set -g status-left "|  "
+
+# # Right side of status bar
+# set -g status-right-length 40
+# set -g status-right "session #S on #h"
+
+# # Window status
+# # set -g window-status-format "#I:#W#F"
+# # set -g window-status-current-format "#I:#W#F"
+# set -g window-status-format "#I:#W"
 # set -g window-status-current-format "#I:#W#F"
-set -g window-status-format "#I:#W"
-set -g window-status-current-format "#I:#W#F"
 
-# Current window status
-set -f window-status-current-style bg=$MAIN_BG_COLOR,fg=$MAIN_FG_COLOR
+# # Current window status
+# set -f window-status-current-style bg=$MAIN_BG_COLOR,fg=$MAIN_FG_COLOR
 
-# Window with activity status
-set -g window-status-activity-style bg=green,fg=black
+# # Window with activity status
+# set -g window-status-activity-style bg=green,fg=black
 
-# Window separator
-set -g window-status-separator " | "
+# # Window separator
+# set -g window-status-separator " | "
 
-# Window status alignment
-set -g status-justify left
+# # Window status alignment
+# set -g status-justify left
 
-# Pane border
-set -g pane-border-style bg=default,fg=white
+# # Pane border
+# set -g pane-border-style bg=default,fg=white
 
-# Active pane border
-set -g pane-active-border-style bg=default,fg=green
+# # Active pane border
+# set -g pane-active-border-style bg=default,fg=green
 
-# Pane number indicator
-set -g display-panes-colour blue
-set -g display-panes-active-colour red
+# # Pane number indicator
+# set -g display-panes-colour blue
+# set -g display-panes-active-colour red
 
-# Clock mode
-set -g clock-mode-colour blue
-set -g clock-mode-style 24
+# # Clock mode
+# set -g clock-mode-colour blue
+# set -g clock-mode-style 24
 
-# Message
-set -g message-style bg=yellow,fg=black
+# # Message
+# set -g message-style bg=yellow,fg=black
 
-# Command message
-set -g message-command-style bg=green,fg=black
+# # Command message
+# set -g message-command-style bg=green,fg=black
 
-# Mode
-set -g mode-style bg=yellow,fg=black
+# # Mode
+# set -g mode-style bg=yellow,fg=black
 
 # tmux < v1.9 config 
 # # Status update interval
