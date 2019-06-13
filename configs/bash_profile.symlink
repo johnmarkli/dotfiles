@@ -10,3 +10,7 @@ command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 [ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/tools
 [ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/tools/bin
 [ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    exec startx
+fi
