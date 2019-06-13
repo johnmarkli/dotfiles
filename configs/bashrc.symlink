@@ -27,8 +27,8 @@ alias gs='git status'
 alias gf='git fetch'
 alias gd='git diff'
 alias gco='git checkout'
-alias ll='ls -latrh'
-alias ls='ls -G'
+alias ll='ls -latrh --color=auto'
+alias ls='ls --color=auto'
 
 # Configure better history
 shopt -s histappend
