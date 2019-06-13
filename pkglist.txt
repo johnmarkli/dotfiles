@@ -1,0 +1,9 @@
+xorg
+xorg-xinit
+i3
+dmenu
+git
+terminator
+vim
+emacs
+chromium

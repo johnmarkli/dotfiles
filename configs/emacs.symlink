@@ -46,6 +46,25 @@
   (balance-windows)
   (other-window 1))
 
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
+ '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+ '(global-display-line-numbers-mode nil)
+ '(line-number-mode nil)
+ '(markdown-command "pandoc")
+ '(org-agenda-files (quote ("~/org/1.org")))
+ '(package-selected-packages
+   (quote
+    (flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+
 (setq vc-follow-symlinks nil)
 (require 'ox-md)
 
@@ -76,6 +95,8 @@
   (evil-mode))
 
 (evil-set-initial-state 'term-mode 'emacs)
+(evil-define-key 'normal markdown-mode-map
+       (kbd "<tab>") 'markdown-cycle)
 
 (use-package evil-commentary
   :ensure t
@@ -84,6 +105,8 @@
 
 (use-package magit
   :ensure t)
+
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (use-package helm
   :demand t
@@ -206,17 +229,7 @@
   (load-theme 'dracula t)
   )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-display-line-numbers-mode nil)
- '(line-number-mode nil)
- '(org-agenda-files (quote ("~/org/1.org")))
- '(package-selected-packages
-   (quote
-    (flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

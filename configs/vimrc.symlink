@@ -26,6 +26,7 @@ if dein#load_state('~/.cache/dein')
   call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('tomasr/molokai')
+  call dein#add('dracula/vim')
   call dein#add('tpope/vim-commentary')
   call dein#add('tpope/vim-surround')
   call dein#add('vim-airline/vim-airline')
@@ -72,7 +73,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 " Airline
-let g:airline_theme='molokai'
+let g:airline_theme='dracula'
 let g:airline_section_y=''
 let g:airline#extensions#whitespace#enabled = 0
 " let g:airline_left_sep=''
@@ -94,7 +95,7 @@ let g:airline#extensions#whitespace#enabled = 0
 " The all important color scheme
 if &t_Co >= 256 || has("gui_running")
   syntax enable
-  silent! colorscheme molokai
+  silent! colorscheme dracula
 endif
 " Allow color schemes to do bright colors without forcing bold.
 if &t_Co == 8 && $TERM !~# '^linux'

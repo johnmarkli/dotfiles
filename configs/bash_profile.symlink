@@ -1,5 +1,4 @@
-# Load .bashrc if it exists
-[ -f ~/.bashrc ] && source ~/.bashrc
+#!/bin/bash
 
 command -v rbenv > /dev/null && eval "$(rbenv init -)"
 command -v nodenv > /dev/null && eval "$(nodenv init -)"
@@ -14,3 +13,6 @@ command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx
 fi
+
+# Load .bashrc if it exists
+[ -f ~/.bashrc ] && source ~/.bashrc

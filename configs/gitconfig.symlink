@@ -1,6 +1,7 @@
 [user]
 	name = John Li
 	email = johnmarkli@gmail.com
+	username = johnmarkli
 
 [github]
   user = johnmarkli
@@ -10,6 +11,7 @@
 
 [core]
   editor = vim
+	excludesfile = /Users/johnli/.gitignore_global
 
 [push]
   default = simple
@@ -37,3 +39,7 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+
