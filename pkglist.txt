@@ -7,3 +7,8 @@ terminator
 vim
 emacs
 chromium
+openssh
+tmux
+ranger
+entr
+fzf
