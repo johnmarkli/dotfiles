@@ -118,3 +118,6 @@ command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 [ ! -z $ANDROID_HOME ] && export PATH=$PATH:$ANDROID_HOME/platform-tools
 [ -d $HOME/bin ] && export PATH=$PATH:$HOME/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc

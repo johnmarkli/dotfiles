@@ -56,7 +56,7 @@
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(global-display-line-numbers-mode nil)
  '(line-number-mode nil)
- '(markdown-command "pandoc")
+ '(markdown-command "pandoc" t)
  '(org-agenda-files (quote ("~/org/1.org")))
  '(package-selected-packages
    (quote

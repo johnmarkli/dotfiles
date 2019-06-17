@@ -1,0 +1,78 @@
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+	silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source ~/.config/nvim/init.vim
+endif
+
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'dracula/vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-fugitive'
+Plug 'benmills/vimux'
+
+" Languages
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+
+" Initialize plugin system
+call plug#end()
+
+" PLUGIN SETTINGS                                                                                                      
+"------------------------------------------------------------------------------------
+" NERDTree settings
+let NERDTreeChristmasTree=0
+let NERDTreeChDirMode=1
+let NERDTreeMinimalUI=1 " Disable bookmarks label, and hint about '?'
+nmap <silent> <leader>nf :NERDTreeFind<CR> " Display current file in the NERDTree on the left
+nmap <silent> <c-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" vim-jsx settings 
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" Airline
+let g:airline_theme='dracula'
+let g:airline_section_y=''
+let g:airline#extensions#whitespace#enabled = 0
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+" let g:airline_section_z=''
+" let g:airline#extensions#tabline#enabled = 0
+
+" Vimux keybindings
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+"------------------------------------------------------------------------------------
+
+" LOOK AND FEEL
+"------------------------------------------------------------------------------------
+" The all important color scheme
+if &t_Co >= 256 || has("gui_running")
+	syntax enable
+	silent! colorscheme dracula
+endif
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^linux'
+	set t_Co=16
+endif
+"------------------------------------------------------------------------------------
+
+
