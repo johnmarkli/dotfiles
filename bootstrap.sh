@@ -147,8 +147,8 @@ setup configs/init.vim.symlink "$HOME/.config/nvim/init.vim"
 setup configs/dracula.tmux.symlink "$HOME/.config/tmux/themes/dracula.tmux"
 setup configs/i3config.symlink "$HOME/.config/i3/config"
 setup configs/i3statusconfig.symlink "$HOME/.config/i3status/config"
-setup configs/termite.symlink "$HOME/.config/termite/config"
-setup bin "$HOME/bin"
+setup configs/termiteconfig.symlink "$HOME/.config/termite/config"
+# setup bin "$HOME/bin"
 # install_neobundle
 install_dein
 
