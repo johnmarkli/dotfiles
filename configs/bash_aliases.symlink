@@ -1,1 +1,4 @@
 alias copy='xclip -sel clip'
+alias vim='nvim'
+alias move-to-dp1='i3-msg "move workspace to output DP1"'
+alias move-to-lvds1='i3-msg "move workspace to output LVDS1"'

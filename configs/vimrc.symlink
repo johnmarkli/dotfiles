@@ -224,8 +224,8 @@ set splitbelow
 set splitright
 
 " resize splits by sane amount
-nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+" nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+" nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " disable shift k
 map <S-k> <Nop>
