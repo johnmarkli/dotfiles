@@ -30,7 +30,8 @@ alias gco='git checkout'
 alias ll='ls -latrh --color=auto'
 alias ls='ls --color=auto'
 alias i3lock='i3lock -c 000000'
-alias notify-me="curl --header \"Content-Type: application/json\" --request POST --data '{\"value1\":\"Script complete\"}' https://maker.ifttt.com/trigger/alert/with/key/cWIV_uYKtYRG9GeL7dhhcI; echo"
+source ~/.bash_aliases
+# alias notify-me="curl --header \"Content-Type: application/json\" --request POST --data '{\"value1\":\"Script complete\"}' https://maker.ifttt.com/trigger/alert/with/key/cWIV_uYKtYRG9GeL7dhhcI; echo"
 
 # Configure better history
 shopt -s histappend
@@ -60,3 +61,11 @@ command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 [ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
 
 complete -C /usr/local/bin/mc mc
+export VAULT_ADDR=https://vault.prod.uhn.io
+
+# Quick calculator
+function c() { 
+  printf "%s\n" "$*" | bc 
+}
+export -f c
+eval "$(fasd --init auto)"
