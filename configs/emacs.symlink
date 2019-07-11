@@ -17,18 +17,24 @@
 
 (use-package diminish :ensure t)
 
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
 ;; Enable use-package
 (eval-when-compile
   (require 'use-package))
 (require 'diminish)                ;; if you use :diminish
 (require 'bind-key)                ;; if you use any :bind variant
 
-(set-face-attribute 'default t :font "Input Mono Narrow 12")
+(set-frame-font "Input Mono Narrow-11" nil t)
 
 (when (window-system)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1))
+
+(show-paren-mode 1)
+(desktop-save-mode 1)
 
 ;; Window management
 (defun delete-window-balance ()
@@ -50,6 +56,9 @@
   (balance-windows)
   (other-window 1))
 
+(setq  x-meta-keysym 'super
+       x-super-keysym 'meta)
+
 ;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -60,11 +69,12 @@
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(global-display-line-numbers-mode nil)
  '(line-number-mode nil)
- '(markdown-command "pandoc" t)
- '(org-agenda-files (quote ("~/org/1.org")))
+ '(markdown-command "pandoc")
+ '(org-agenda-files nil)
+ '(org-default-notes-file (quote ("~/Dropbox/org/notes.org")))
  '(package-selected-packages
    (quote
-    (flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+    (evil-org evil-collection company company-mode flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
 
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
@@ -90,25 +100,39 @@
     ad-do-it))
 (ad-activate 'term-sentinel)
 
+(setq evil-want-keybinding nil)
 
 (use-package evil
-  :ensure t
   :init
   (setq evil-want-C-u-scroll t)
   :config
+  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+  (define-key evil-normal-state-map (kbd "C-n") 'dired-sidebar-toggle-sidebar)
   (evil-mode))
 
 (evil-set-initial-state 'term-mode 'emacs)
-(evil-define-key 'normal markdown-mode-map
-       (kbd "<tab>") 'markdown-cycle)
+;; (evil-define-key 'normal markdown-mode-map
+;;        (kbd "<tab>") 'markdown-cycle)
+
+(use-package evil-collection
+  :config
+  (evil-collection-init))
+
+(use-package evil-org
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 (use-package evil-commentary
-  :ensure t
   :config
   (evil-commentary-mode))
 
-(use-package magit
-  :ensure t)
+(use-package magit)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -125,10 +149,10 @@
 	 ("M-y" . 'helm-show-kill-ring)
 	 )
   :config
-  (helm-mode 1))
+  (helm-mode 1)
+  :diminish (helm-mode))
 
 (use-package projectile
-  :ensure t
   :init
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
@@ -140,15 +164,22 @@
   :diminish (projectile-mode))
 
 (use-package helm-projectile
-  :ensure t
   :config
   (helm-projectile-on))
 
 (use-package ace-window
-  :ensure t
+  :disabled
   :config
   (global-set-key (kbd "M-o") 'ace-window)
   (global-set-key [remap other-window] 'ace-window))
+
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "C-s-h") 'windmove-left)
+(global-set-key (kbd "C-s-l") 'windmove-right)
+(global-set-key (kbd "C-s-k") 'windmove-up)
+(global-set-key (kbd "C-s-j") 'windmove-down)
+(global-set-key (kbd "C-x M-r") (lambda () (interactive) (load-file user-init-file)))
+(global-set-key (kbd "C-x M-e") (lambda () (interactive) (find-file user-init-file)))
 
 ;;;
 ;;; Org Mode
@@ -159,6 +190,7 @@
 (with-eval-after-load 'org
   (org-babel-do-load-languages 'org-babel-load-languages '((ruby . t))))
 (setq org-log-done 'time)
+(setq org-director "~/Dropbox/org")
 (setq org-ellipsis "⤵")
 ;;
 ;; Stan
@@ -168,25 +200,19 @@
 (global-set-key "\C-ca" 'org-agenda)
 
 (use-package org-bullets
-  :ensure t
   :commands (org-bullets-mode)
   :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(use-package htmlize
-  :ensure t)
-
-(use-package reveal-in-osx-finder
-  :ensure t)
+(use-package htmlize)
 
 (use-package go-mode
-  :ensure t)
-(add-hook 'before-save-hook #'gofmt-before-save)
+  :config
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook #'gofmt-before-save))
 
-(use-package dockerfile-mode
-  :ensure t)
+(use-package dockerfile-mode)
 
 (use-package exec-path-from-shell
-  :ensure t
   :if (memq window-system '(mac ns))
   :config
   (setq exec-path-from-shell-arguments '("-l"))
@@ -195,14 +221,12 @@
   (exec-path-from-shell-copy-env "GOPATH"))
 
 (use-package emojify
-  :ensure t
+  :disabled
   :init (add-hook 'after-init-hook #'global-emojify-mode))
 
-(use-package dired-subtree
-  :ensure t)
+(use-package dired-subtree)
 
 (use-package dired-sidebar
-  :ensure t
   :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
   :commands (dired-sidebar-toggle-sidebar))
 
@@ -210,7 +234,6 @@
   (setq dired-use-ls-dired nil))
 
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
@@ -221,21 +244,16 @@
 (require 'evil-markdown)
 
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 
-;; (use-package molokai-theme
-;;   :ensure t
-;;   :init
-;;   (load-theme 'molokai-theme-kit t))
+(use-package company
+  :init (add-hook `after-init-hook `global-company-mode))
+
 (use-package dracula-theme
-  :ensure t
   :load-path "themes"
   :init
-  ;; (setq molokai-theme-kit t)
   :config
-  (load-theme 'dracula t)
-  )
+  (load-theme 'dracula t))
 
 
 (custom-set-faces
