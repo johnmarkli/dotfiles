@@ -26,24 +26,26 @@ export -n PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$(
 alias gs='git status'
 alias gf='git fetch'
 alias gd='git diff'
+alias gp='git pull'
 alias gco='git checkout'
+alias gl='git log --oneline --decorate --graph'
 alias ll='ls -latrh --color=auto'
 alias ls='ls --color=auto'
 alias i3lock='i3lock -c 000000'
 source ~/.bash_aliases
-# alias notify-me="curl --header \"Content-Type: application/json\" --request POST --data '{\"value1\":\"Script complete\"}' https://maker.ifttt.com/trigger/alert/with/key/cWIV_uYKtYRG9GeL7dhhcI; echo"
 
 # Configure better history
 shopt -s histappend
 HISTFILESIZE=1000000
 HISTSIZE=1000000
-PROMPT_COMMAND='history -a'
+# PROMPT_COMMAND='history -a'
 
 # Set up bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # PATH set up
 command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
+command -v go > /dev/null && export GOBIN=$(go env GOPATH)/bin
 command -v rbenv > /dev/null && eval "$(rbenv init -)"
 command -v nodenv > /dev/null && eval "$(nodenv init -)"
 command -v python3.7 > /dev/null && export PATH=~/Library/Python/3.7/bin:$PATH
@@ -60,7 +62,9 @@ command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
 [ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
 
-complete -C /usr/local/bin/mc mc
+source /usr/share/bash-completion/completions/git
+
+# complete -C /usr/local/bin/mc mc
 export VAULT_ADDR=https://vault.prod.uhn.io
 
 # Quick calculator
@@ -69,3 +73,26 @@ function c() {
 }
 export -f c
 eval "$(fasd --init auto)"
+
+# function settitle () {
+#   export PREV_COMMAND=${PREV_COMMAND}${@}
+#   echo -ne "\033]0;${PREV_COMMAND}\007"
+#   export PREV_COMMAND=${PREV_COMMAND}' | '
+# }
+
+# export PROMPT_COMMAND=${PROMPT_COMMAND}';export PREV_COMMAND=""'
+
+# trap 'settitle "$BASH_COMMAND"' DEBUG
+
+# trap 'printf "\033]0;%s\007" "${BASH_COMMAND//[^[:print:]]/}"' DEBUG
+trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
+function show_name(){ 
+  if [[ -n "$BASH_COMMAND" ]]; 
+  then 
+    echo -en "\033]0;`pwd` - term \007"; 
+  else 
+    echo -en "\033]0;$BASH_COMMAND - term \007"; 
+  fi 
+}
+export PROMPT_COMMAND='show_name'
+

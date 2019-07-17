@@ -4,7 +4,6 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -20,7 +19,7 @@ set $right l
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango: Noto Sans 8
+font pango: Noto Sans 11
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -84,8 +83,8 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+t layout tabbed
+bindsym $mod+w layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -98,6 +97,7 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+bindsym $mod+Shift+a focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -108,9 +108,9 @@ set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8: music"
-set $ws9 "9: communicate"
-set $ws10 "10: start"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -120,9 +120,9 @@ bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
 bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -144,66 +144,70 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x exec "source ~/.xinitrc"
-bindsym $mod+Shift+b exec "source ~/.bashrc"
+# bindsym $mod+Shift+b exec "source ~/.bashrc"
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# # resize window (you can also use the mouse for that)
-# mode "resize" {
-#     # These bindings trigger as soon as you enter the resize mode
-
-#     # Pressing left will shrink the window’s width.
-#     # Pressing right will grow the window’s width.
-#     # Pressing up will shrink the window’s height.
-#     # Pressing down will grow the window’s height.
-#     bindsym $left resize shrink width 10 px or 10 ppt
-#     bindsym $down resize grow height 10 px or 10 ppt
-#     bindsym $up resize shrink height 10 px or 10 ppt
-#     bindsym $right resize grow width 10 px or 10 ppt
-
-#     # same bindings, but for the arrow keys
-#     bindsym Left resize shrink width 10 px or 10 ppt
-#     bindsym Down resize grow height 10 px or 10 ppt
-#     bindsym Up resize shrink height 10 px or 10 ppt
-#     bindsym Right resize grow width 10 px or 10 ppt
-
-#     # back to normal: Enter or Escape or $mod+r
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-#     bindsym $mod+r mode "default"
-# }
-
-# bindsym $mod+r mode "resize"
+mode "edit" {
+  bindsym b exec "termite -e 'vim /home/j/.bashrc'"; mode "default"
+  bindsym a exec "termite -e 'vim /home/j/.bash_aliases'"; mode "default"
+  bindsym i exec "termite -e 'vim /home/j/.config/i3/config'"; mode "default"
+  bindsym s exec "termite -e 'vim /home/j/.config/i3status/config'"; mode "default"
+  bindsym e exec "termite -e 'vim /home/j/.emacs'"; mode "default"
+  bindsym x exec "termite -e 'vim /home/j/.xinitrc'"; mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+e mode "default"
+}
+bindsym $mod+Shift+e mode "edit"
 
 bindsym $other_mod+Ctrl+$left resize shrink width 10 px or 10 ppt
 bindsym $other_mod+Ctrl+$down resize grow height 10 px or 10 ppt
 bindsym $other_mod+Ctrl+$up resize shrink height 10 px or 10 ppt
 bindsym $other_mod+Ctrl+$right resize grow width 10 px or 10 ppt
 
+bindsym $other_mod+Shift+$left move left 25 px
+bindsym $other_mod+Shift+$down move down 25 px
+bindsym $other_mod+Shift+$up move up 25 px
+bindsym $other_mod+Shift+$right move right 25 px
 
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show, move position center
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
+bindsym $mod+Shift+c [class="Chromium"] scratchpad show
+bindsym $mod+Shift+n [class="Emacs"] scratchpad show
+bindsym $mod+Shift+t [class="Termite"] scratchpad show
 
 bindsym $mod+c exec chromium
+bindsym $mod+e exec emacs
 bindsym $mod+Escape exec i3lock -c 000000
 
 for_window [class="Spotify"] move to workspace $ws8
 
-for_window [class=".*"] border pixel 4
-# smart_borders on
+# for_window [class=".*"] border pixel 4
+smart_borders on
 gaps inner 0
 gaps outer 0
 smart_gaps on
 # gaps outer current plus 5
 # gaps horizontal current plus 40
 # gaps outer current toggle 60
+
+bindsym $mod+b [class=".*"] border normal
+
+bindsym $mod+Shift+b [class=".*"] border pixel 4
+
+# # Toggle between hide state and show state
+# bindsym $mod+m bar hidden_state toggle
+
+# Toggle between dock mode and hide mode
+bindsym $mod+m bar mode toggle
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -245,8 +249,22 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioMedia exec spotify
 
-bindsym $mod+Shift+Ctrl+l move workspace to output LVDS1
-bindsym $mod+Shift+Ctrl+d move workspace to output DP1
+mode "display" {
+  bindsym o move workspace to output right; mode "default"
+  bindsym q exec "xrandr --output eDP1 --off"; mode "default"
+  bindsym r exec "autorandr -c"; mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+d mode "default"
+}
+bindsym $mod+Shift+d mode "display"
 
-exec i3-msg workspace $ws10
+bindsym Ctrl+Shift+$mod+q exec "shutdown now"
+bindsym Ctrl+Shift+$mod+r exec "shutdown -r now"
+
+# exec i3-msg workspace $ws10
 exec --no-startup-id termite
+exec --no-startup-id chromium
+exec --no-startup-id emacs --file ~/Dropbox/org/notes.org
+exec --no-startup-id autorandr --change --force
+exec --no-startup-id sleep 2; i3-msg '[class=".*"] move scratchpad'
