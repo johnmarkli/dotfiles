@@ -149,6 +149,7 @@ setup configs/i3config.symlink "$HOME/.config/i3/config"
 setup configs/i3statusconfig.symlink "$HOME/.config/i3status/config"
 setup configs/termiteconfig.symlink "$HOME/.config/termite/config"
 setup configs/fontconfig.symlink "$HOME/.config/fontconfig/fonts.conf"
+setup configs/compton.conf.symlink "$HOME/.config/compton.conf"
 # setup bin "$HOME/bin"
 # install_neobundle
 install_dein

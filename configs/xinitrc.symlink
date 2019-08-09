@@ -2,5 +2,5 @@
 # xset b 2 1 200
 xset b 0 0 0
 setxkbmap -option caps:escape
-# xinput disable "SynPS/2 Synaptics TouchPad"
+xinput disable "SynPS/2 Synaptics TouchPad"
 exec i3

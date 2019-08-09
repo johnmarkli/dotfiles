@@ -71,14 +71,12 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(global-display-line-numbers-mode nil)
- '(line-number-mode nil)
  '(markdown-command "pandoc" t)
  '(org-agenda-files nil)
  '(org-default-notes-file (quote ("~/Dropbox/org/notes.org")))
  '(package-selected-packages
    (quote
-    (unicode-fonts dired-subtree exec-path-from-shell helm-ag json-mode evil-org evil-collection company company-mode flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+    (yafolding unicode-fonts dired-subtree exec-path-from-shell helm-ag json-mode evil-org evil-collection company company-mode flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
 
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
@@ -110,9 +108,15 @@
   :ensure
   :init
   (setq evil-want-C-u-scroll t)
+  (setq evil-fold-list 'yafolding)
   :config
-  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+  (define-key evil-normal-state-map (kbd "M-p") 'helm-projectile)
+  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file-in-known-projects)
   (define-key evil-normal-state-map (kbd "C-n") 'dired-sidebar-toggle-sidebar)
+  (define-key evil-normal-state-map (kbd "z a") 'yafolding-toggle-element)
+  (define-key evil-normal-state-map (kbd "z c") 'yafolding-hide-element)
+  (define-key evil-normal-state-map (kbd "z m") 'yafolding-hide-all)
+  (define-key evil-normal-state-map (kbd "z r") 'yafolding-show-all)
   (evil-mode))
 
 ; (evil-set-initial-state 'term-mode 'emacs)
@@ -162,6 +166,7 @@
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-p") 'helm-projectile-find-file-in-known-projects)
   (setq projectile-completion-system 'helm)
   (projectile-global-mode)
   (helm-projectile-on)
@@ -179,10 +184,10 @@
   (global-set-key [remap other-window] 'ace-window))
 
 (global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "C-s-h") 'windmove-left)
-(global-set-key (kbd "C-s-l") 'windmove-right)
-(global-set-key (kbd "C-s-k") 'windmove-up)
-(global-set-key (kbd "C-s-j") 'windmove-down)
+(global-set-key (kbd "C-h") 'windmove-left)
+(global-set-key (kbd "C-l") 'windmove-right)
+(global-set-key (kbd "C-k") 'windmove-up)
+(global-set-key (kbd "C-j") 'windmove-down)
 (global-set-key (kbd "C-x M-r") (lambda () (interactive) (load-file user-init-file)))
 (global-set-key (kbd "C-x M-e") (lambda () (interactive) (find-file user-init-file)))
 
@@ -259,6 +264,8 @@
 
 (use-package company
   :init (add-hook `after-init-hook `global-company-mode))
+
+(use-package yafolding)
 
 (use-package dracula-theme
   :ensure t

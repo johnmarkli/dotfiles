@@ -39,6 +39,7 @@ shopt -s histappend
 HISTFILESIZE=1000000
 HISTSIZE=1000000
 # PROMPT_COMMAND='history -a'
+shopt -s globstar
 
 # Set up bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
@@ -72,19 +73,7 @@ function c() {
   printf "%s\n" "$*" | bc 
 }
 export -f c
-eval "$(fasd --init auto)"
 
-# function settitle () {
-#   export PREV_COMMAND=${PREV_COMMAND}${@}
-#   echo -ne "\033]0;${PREV_COMMAND}\007"
-#   export PREV_COMMAND=${PREV_COMMAND}' | '
-# }
-
-# export PROMPT_COMMAND=${PROMPT_COMMAND}';export PREV_COMMAND=""'
-
-# trap 'settitle "$BASH_COMMAND"' DEBUG
-
-# trap 'printf "\033]0;%s\007" "${BASH_COMMAND//[^[:print:]]/}"' DEBUG
 trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
 function show_name(){ 
   if [[ -n "$BASH_COMMAND" ]]; 
@@ -96,3 +85,4 @@ function show_name(){
 }
 export PROMPT_COMMAND='show_name'
 
+eval "$(fasd --init auto)"

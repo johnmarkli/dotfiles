@@ -37,6 +37,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Shift+t exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -47,6 +48,16 @@ bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec "rofi -show run -modi run -location 1 -width 100 \
+# 		 -lines 2 -line-margin 0 -line-padding 1 \
+# 		 -separator-style none -font "mono 10" -columns 9 -bw 0 \
+# 		 -disable-history \
+# 		 -hide-scrollbar \
+# 		 -color-window "#222222, #222222, #b1b4b3" \
+# 		 -color-normal "#222222, #b1b4b3, #222222, #005577, #b1b4b3" \
+# 		 -color-active "#222222, #b1b4b3, #222222, #007763, #b1b4b3" \
+# 		 -color-urgent "#222222, #b1b4b3, #222222, #77003d, #b1b4b3" \
+# 		 -kb-row-select "tab" -kb-row-tab """
 
 # change focus
 bindsym $mod+$left focus left
@@ -82,9 +93,19 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+w layout toggle split
+# bindsym $mod+s layout stacking
+# bindsym $mod+t layout tabbed
+# bindsym $mod+w layout toggle split
+
+mode "layout" {
+  bindsym s layout stacking
+  bindsym t layout tabbed
+  bindsym e layout toggle split
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+Ctrl+l mode "default"
+}
+bindsym $mod+Shift+Ctrl+l mode "layout"
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -148,27 +169,14 @@ bindsym $mod+Shift+Tab workspace prev
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+x exec "source ~/.xinitrc"
-# bindsym $mod+Shift+b exec "source ~/.bashrc"
+bindsym $mod+Shift+b exec "source ~/.bashrc"
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+Ctrl+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-mode "edit" {
-  bindsym b exec "termite -e 'vim /home/j/.bashrc'"; mode "default"
-  bindsym a exec "termite -e 'vim /home/j/.bash_aliases'"; mode "default"
-  bindsym i exec "termite -e 'vim /home/j/.config/i3/config'"; mode "default"
-  bindsym s exec "termite -e 'vim /home/j/.config/i3status/config'"; mode "default"
-  bindsym e exec "termite -e 'vim /home/j/.emacs'"; mode "default"
-  bindsym x exec "termite -e 'vim /home/j/.xinitrc'"; mode "default"
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-  bindsym $mod+Shift+e mode "default"
-}
-bindsym $mod+Shift+e mode "edit"
-
-bindsym $other_mod+Ctrl+$left resize shrink width 10 px or 10 ppt
-bindsym $other_mod+Ctrl+$down resize grow height 10 px or 10 ppt
-bindsym $other_mod+Ctrl+$up resize shrink height 10 px or 10 ppt
-bindsym $other_mod+Ctrl+$right resize grow width 10 px or 10 ppt
+bindsym $mod+Ctrl+$left resize shrink width 10 px or 10 ppt
+bindsym $mod+Ctrl+$down resize grow height 10 px or 10 ppt
+bindsym $mod+Ctrl+$up resize shrink height 10 px or 10 ppt
+bindsym $mod+Ctrl+$right resize grow width 10 px or 10 ppt
 
 bindsym $other_mod+Shift+$left move left 25 px
 bindsym $other_mod+Shift+$down move down 25 px
@@ -177,15 +185,22 @@ bindsym $other_mod+Shift+$right move right 25 px
 
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show, move position center
+bindsym $mod+grave scratchpad show, move position center
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
-bindsym $mod+Shift+c [class="Chromium"] scratchpad show
-bindsym $mod+Shift+n [class="Emacs"] scratchpad show
-bindsym $mod+Shift+t [class="Termite"] scratchpad show
+# Scratchpad Shortcuts
+bindsym $mod+c [class="Chromium"] scratchpad show
+bindsym $mod+e [class="Emacs"] scratchpad show
+bindsym $mod+t [class="Termite"] scratchpad show
+bindsym $mod+m [class="chrome"] scratchpad show
 
-bindsym $mod+c exec chromium
-bindsym $mod+e exec emacs
+# App Shortcuts
+bindsym $mod+Shift+c exec chromium
+bindsym $mod+Shift+e exec emacs
+bindsym $mod+Shift+v exec code
+bindsym $mod+Shift+m exec google-chrome-stable https://music.amazon.ca/playlists
+
 bindsym $mod+Escape exec i3lock -c 000000
 
 for_window [class="Spotify"] move to workspace $ws8
@@ -201,13 +216,13 @@ smart_gaps on
 
 bindsym $mod+b [class=".*"] border normal
 
-bindsym $mod+Shift+b [class=".*"] border pixel 4
+bindsym $mod+Shift+Ctrl+b [class=".*"] border pixel 4
 
 # # Toggle between hide state and show state
 # bindsym $mod+m bar hidden_state toggle
 
 # Toggle between dock mode and hide mode
-bindsym $mod+m bar mode toggle
+# bindsym $mod+Shift+m bar mode toggle
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -228,18 +243,23 @@ bar {
 }
 
 # Colors
+set $bg #6272A4
+set $fg #F8F8F2
+set $ind #0080FF
+set $notind #44475A
+set $unfocsed #282A36
 # class                 border  bground text    indicator child_border
-client.focused          #6272A4 #6272A4 #F8F8F2 #0080FF   #0080FF
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+client.focused          $ind    $ind    $fg     $ind      $ind
+client.focused_inactive $bg     $bg     $fg     $bg       $bg
+client.unfocused        $notind $notind $fg     $notind   $notind
+client.urgent           #44475A #FF5555 $fg     #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 $fg     #282A36   #282A36
 
-client.background       #F8F8F2
+client.background       $fg
 
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec "amixer -q set Master 2dB+ unmute || amixer -q set Speaker 2dB+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q set Master 2dB- unmute || amixer -q set Speaker 2dB- unmute"
+bindsym XF86AudioMute exec "amixer -q set Master toggle || amixer -q set Speaker toggle"
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -249,22 +269,50 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioMedia exec spotify
 
+mode "edit" {
+  bindsym b exec "termite -e 'vim /home/j/.bashrc'"; mode "default"
+  bindsym a exec "termite -e 'vim /home/j/.bash_aliases'"; mode "default"
+  bindsym i exec "termite -e 'vim /home/j/.config/i3/config'"; mode "default"
+  bindsym t exec "termite -e 'vim /home/j/.config/i3status/config'"; mode "default"
+  bindsym s exec "termite -e 'vim /home/j/.ssh/config'"; mode "default"
+  bindsym e exec "termite -e 'vim /home/j/.emacs'"; mode "default"
+  bindsym x exec "termite -e 'vim /home/j/.xinitrc'"; mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+Ctrl+e mode "edit"
+}
+bindsym $mod+Shift+Ctrl+e mode "edit"
+
+
 mode "display" {
   bindsym o move workspace to output right; mode "default"
   bindsym q exec "xrandr --output eDP1 --off"; mode "default"
+  bindsym a exec "autorandr -c"; mode "default"
   bindsym r exec "autorandr -c"; mode "default"
   bindsym Return mode "default"
   bindsym Escape mode "default"
-  bindsym $mod+Shift+d mode "default"
+  bindsym $mod+Shift+Ctrl+d mode "default"
 }
-bindsym $mod+Shift+d mode "display"
+bindsym $mod+Shift+Ctrl+d mode "display"
 
-bindsym Ctrl+Shift+$mod+q exec "shutdown now"
-bindsym Ctrl+Shift+$mod+r exec "shutdown -r now"
+mode "quit" {
+  bindsym q exec "i3-msg exit; shutdown now"
+  bindsym r exec "i3-msg exit; shutdown -r now"
+  bindsym e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+Ctrl+q mode "default"
+}
+bindsym $mod+Shift+Ctrl+q mode "quit"
+
+# bindsym Ctrl+Shift+$mod+q exec "shutdown now"
+# bindsym Ctrl+Shift+$mod+r exec "shutdown -r now"
 
 # exec i3-msg workspace $ws10
 exec --no-startup-id termite
 exec --no-startup-id chromium
 exec --no-startup-id emacs --file ~/Dropbox/org/notes.org
 exec --no-startup-id autorandr --change --force
-exec --no-startup-id sleep 2; i3-msg '[class=".*"] move scratchpad'
+exec --no-startup-id sleep 5; i3-msg '[class=".*"] move scratchpad'
+exec --no-startup-id dropbox
+exec --no-startup-id compton
