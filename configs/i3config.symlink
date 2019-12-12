@@ -34,13 +34,14 @@ font pango: Noto Sans 11
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+focus_follows_mouse no
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+t exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
@@ -160,9 +161,12 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # rename worksapce
 bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
-#bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
+# google
+bindsym $mod+g exec i3-input -F 'exec chromium --new-window google.ca/search?q="%s"' -P 'Search: '
+
+bindsym $mod+Tab workspace back_and_forth
+# bindsym $mod+Tab workspace next
+# bindsym $mod+Shift+Tab workspace prev
 
 # reload the configuration file
 # bindsym $mod+Shift+c reload
@@ -191,19 +195,23 @@ bindsym $mod+Shift+minus move scratchpad
 
 # Scratchpad Shortcuts
 bindsym $mod+c [class="Chromium"] scratchpad show
+# bindsym $mod+c [class="qutebrowser"] scratchpad show
 bindsym $mod+e [class="Emacs"] scratchpad show
 bindsym $mod+t [class="Termite"] scratchpad show
-bindsym $mod+m [class="chrome"] scratchpad show
+bindsym $mod+s [class="Google-chrome"] scratchpad show
 
 # App Shortcuts
-bindsym $mod+Shift+c exec chromium
+bindsym $mod+Shift+q exec qutebrowser
+bindsym $mod+Shift+c exec chromium --new-window
 bindsym $mod+Shift+e exec emacs
 bindsym $mod+Shift+v exec code
-bindsym $mod+Shift+m exec google-chrome-stable https://music.amazon.ca/playlists
+# bindsym $mod+Shift+m exec google-chrome-stable https://music.amazon.ca/playlists
+bindsym $mod+Shift+s exec google-chrome-stable https://open.spotify.com/browse/featured
+bindsym $mod+Shift+p exec pavucontrol
 
 bindsym $mod+Escape exec i3lock -c 000000
 
-for_window [class="Spotify"] move to workspace $ws8
+bindsym $mod+Shift+Ctrl+s exec maim -s ~/Screenshots/screenshot_$(date +%F_%T).png
 
 # for_window [class=".*"] border pixel 4
 smart_borders on
@@ -218,6 +226,7 @@ bindsym $mod+b [class=".*"] border normal
 
 bindsym $mod+Shift+Ctrl+b [class=".*"] border pixel 4
 
+
 # # Toggle between hide state and show state
 # bindsym $mod+m bar hidden_state toggle
 
@@ -227,7 +236,7 @@ bindsym $mod+Shift+Ctrl+b [class=".*"] border pixel 4
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command i3status
+  status_command i3blocks
   position top
     colors {
       background #282A36
@@ -257,17 +266,70 @@ client.placeholder      #282A36 #282A36 $fg     #282A36   #282A36
 
 client.background       $fg
 
-bindsym XF86AudioRaiseVolume exec "amixer -q set Master 2dB+ unmute || amixer -q set Speaker 2dB+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q set Master 2dB- unmute || amixer -q set Speaker 2dB- unmute"
-bindsym XF86AudioMute exec "amixer -q set Master toggle || amixer -q set Speaker toggle"
+# bindsym XF86AudioRaiseVolume exec "amixer -q set Master 2dB+ unmute || amixer -q set Speaker 2dB+ unmute"
+# bindsym XF86AudioLowerVolume exec "amixer -q set Master 2dB- unmute || amixer -q set Speaker 2dB- unmute"
+# bindsym XF86AudioMute exec "amixer -q set Master toggle || amixer -q set Speaker toggle"
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pamixer -t # mute sound
+bindsym $mod+Shift+Ctrl+Up exec --no-startup-id pamixer -i 5 #increase sound volume
+bindsym $mod+Shift+Ctrl+Down exec --no-startup-id pamixer -d 5 #decrease sound volume
+
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%-
+bindsym $mod+Shift+Ctrl+plus exec --no-startup-id brightnessctl s +5%
+bindsym $mod+Shift+Ctrl+minus exec --no-startup-id brightnessctl s 5%-
 
 # Media player controls
+bindsym $mod+Shift+Ctrl+space exec playerctl play-pause
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl pause-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+Shift+Ctrl+Right exec playerctl next
+bindsym $mod+Shift+Ctrl+Left exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioMedia exec spotify
+
+# mode "chromium" {
+#   bindsym g exec "chromium --new-window https://gitlab.com"; mode "default"
+#   bindsym i exec "chromium --new-window --incognito"; mode "default"
+#   bindsym Return mode "default"
+#   bindsym Escape mode "default"
+#   bindsym $mod+Shift+Ctrl+d mode "default"
+# }
+# bindsym $mod+Shift+Ctrl+c mode "chromium"
+bindsym $mod+Shift+i exec "chromium --new-window --incognito"
+# bindsym $mod+Shift+i exec qutebrowser ":open -p"
+
+mode "gitlab" {
+  bindsym r exec "chromium --new-window https://gitlab.com/uhn/core"; mode "default"
+  bindsym m exec "chromium --new-window https://gitlab.com/uhn/comp"; mode "default"
+  bindsym d exec "chromium --new-window https://gitlab.com/uhn/deployment"; mode "default"
+  bindsym t exec "chromium --new-window https://gitlab.com/uhn/torch"; mode "default"
+  bindsym g exec "chromium --new-window https://gitlab.com/uhn/general"; mode "default"
+  bindsym q exec "chromium --new-window https://gitlab.com/uhn/ggql"; mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+Ctrl+g mode "default"
+}
+bindsym $mod+Shift+Ctrl+g mode "gitlab"
+
+mode "merge requests" {
+  bindsym r exec "chromium --new-window https://gitlab.com/uhn/core/merge_requests"; mode "default"
+  bindsym m exec "chromium --new-window https://gitlab.com/uhn/comp/merge_requests"; mode "default"
+  bindsym d exec "chromium --new-window https://gitlab.com/uhn/deployment/merge_requests"; mode "default"
+  bindsym t exec "chromium --new-window https://gitlab.com/uhn/torch/merge_requests"; mode "default"
+  bindsym g exec "chromium --new-window https://gitlab.com/uhn/general/merge_requests"; mode "default"
+  bindsym q exec "chromium --new-window https://gitlab.com/uhn/ggql/merge_requests"; mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Shift+Ctrl+m mode "default"
+}
+bindsym $mod+Shift+Ctrl+m mode "merge requests"
 
 mode "edit" {
   bindsym b exec "termite -e 'vim /home/j/.bashrc'"; mode "default"
@@ -277,6 +339,8 @@ mode "edit" {
   bindsym s exec "termite -e 'vim /home/j/.ssh/config'"; mode "default"
   bindsym e exec "termite -e 'vim /home/j/.emacs'"; mode "default"
   bindsym x exec "termite -e 'vim /home/j/.xinitrc'"; mode "default"
+  bindsym c exec "termite -e 'vim /home/j/.config/compton.conf'"; mode "default"
+  bindsym l exec "termite -e 'vim /home/j/.config/i3blocks/config'"; mode "default"
   bindsym Return mode "default"
   bindsym Escape mode "default"
   bindsym $mod+Shift+Ctrl+e mode "edit"
@@ -309,10 +373,14 @@ bindsym $mod+Shift+Ctrl+q mode "quit"
 # bindsym Ctrl+Shift+$mod+r exec "shutdown -r now"
 
 # exec i3-msg workspace $ws10
-exec --no-startup-id termite
-exec --no-startup-id chromium
+exec --no-startup-id brightnessctl s 25%
+# exec --no-startup-id qutebrowser
 exec --no-startup-id emacs --file ~/Dropbox/org/notes.org
-exec --no-startup-id autorandr --change --force
-exec --no-startup-id sleep 5; i3-msg '[class=".*"] move scratchpad'
-exec --no-startup-id dropbox
-exec --no-startup-id compton
+exec --no-startup-id sleep 4; i3-msg '[class=".*"] move scratchpad'
+exec --no-startup-id sleep 5; emacs
+# exec --no-startup-id sleep 9; chromium
+exec --no-startup-id sleep 6; dropbox
+exec --no-startup-id sleep 6; compton
+exec --no-startup-id sleep 6; dunst
+exec --no-startup-id sleep 7; "autorandr -c"
+exec --no-startup-id sleep 8; i3-msg 'move workspace to output right'

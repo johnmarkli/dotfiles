@@ -1,7 +1,10 @@
 ;;; .emacs --- John's emacs config
 ;;; Commentary:
 
-;;; Code:
+;;; Make startup faster by reducing the frequency of garbage
+;; collection.  The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000));; Code:
+
 ;; Bootstrap `use-package'
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -18,7 +21,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(use-package diminish :ensure t)
+(use-package diminish)
 
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
@@ -31,12 +34,18 @@
 
 (set-frame-font "Input Mono Narrow-11" nil t)
 
+(setq-default indent-tabs-mode nil)
+(setq-default fill-column 80)
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+
 (when (window-system)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1))
 
 (show-paren-mode 1)
+(hl-line-mode 1)
 ;; (desktop-save-mode 1)
 (prefer-coding-system 'utf-8)
 
@@ -76,7 +85,7 @@
  '(org-default-notes-file (quote ("~/Dropbox/org/notes.org")))
  '(package-selected-packages
    (quote
-    (yafolding unicode-fonts dired-subtree exec-path-from-shell helm-ag json-mode evil-org evil-collection company company-mode flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
+    (graphql-mode yaml-mode sublimity automargin perfect-margin jsonnet-mode esup yafolding unicode-fonts dired-subtree exec-path-from-shell helm-ag json-mode evil-org evil-collection company company-mode flycheck markdown-mode dired-sidebar dockerfile-mode go-mode reveal-in-osx-finder emojify helm-projectile dracula-theme helm monokai htmlize org-bullets magit projectile evil-visual-mark-mode))))
 
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
@@ -105,13 +114,12 @@
 (setq evil-want-keybinding nil)
 
 (use-package evil
-  :ensure
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-fold-list 'yafolding)
   :config
-  (define-key evil-normal-state-map (kbd "M-p") 'helm-projectile)
-  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file-in-known-projects)
+  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+  (define-key evil-normal-state-map (kbd "M-p") 'helm-projectile-find-file-in-known-projects)
   (define-key evil-normal-state-map (kbd "C-n") 'dired-sidebar-toggle-sidebar)
   (define-key evil-normal-state-map (kbd "z a") 'yafolding-toggle-element)
   (define-key evil-normal-state-map (kbd "z c") 'yafolding-hide-element)
@@ -166,7 +174,7 @@
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-p") 'helm-projectile-find-file-in-known-projects)
+  (define-key projectile-mode-map (kbd "M-p") 'helm-projectile-find-file-in-known-projects)
   (setq projectile-completion-system 'helm)
   (projectile-global-mode)
   (helm-projectile-on)
@@ -176,6 +184,11 @@
 (use-package helm-projectile
   :config
   (helm-projectile-on))
+
+(use-package sublimity)
+(require 'sublimity)
+(require 'sublimity-attractive)
+
 
 (use-package ace-window
   :disabled
@@ -224,8 +237,10 @@
   (add-hook 'before-save-hook #'gofmt-before-save))
 
 (use-package dockerfile-mode)
-
 (use-package json-mode)
+(use-package jsonnet-mode)
+(use-package yaml-mode)
+(use-package graphql-mode)
 
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns))
@@ -268,12 +283,19 @@
 (use-package yafolding)
 
 (use-package dracula-theme
-  :ensure t
   :load-path "themes"
   :init
   :config
   (load-theme 'dracula t))
 
+;; Use a hook so the message doesn't get clobbered by other messages.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -282,3 +304,5 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))

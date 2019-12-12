@@ -1,6 +1,18 @@
 # system beep [volume] [pitch] [duration(ms)]
 # xset b 2 1 200
 xset b 0 0 0
+
 setxkbmap -option caps:escape
-xinput disable "SynPS/2 Synaptics TouchPad"
+
+# # make CapsLock behave like Ctrl:
+# setxkbmap -option ctrl:nocaps
+
+# # make short-pressed Ctrl behave like Escape:
+# xcape -e 'Control_L=Escape'
+
+# xinput disable "SynPS/2 Synaptics TouchPad"
+
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+
+
 exec i3

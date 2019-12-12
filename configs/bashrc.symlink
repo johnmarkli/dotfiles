@@ -31,6 +31,7 @@ alias gco='git checkout'
 alias gl='git log --oneline --decorate --graph'
 alias ll='ls -latrh --color=auto'
 alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 alias i3lock='i3lock -c 000000'
 source ~/.bash_aliases
 
@@ -47,6 +48,8 @@ shopt -s globstar
 # PATH set up
 command -v go > /dev/null && export PATH=$PATH:$(go env GOPATH)/bin
 command -v go > /dev/null && export GOBIN=$(go env GOPATH)/bin
+command -v go > /dev/null && export GOPATH=$(go env GOPATH)
+command -v go > /dev/null && export GOPRIVATE="gitlab.com/uhn"
 command -v rbenv > /dev/null && eval "$(rbenv init -)"
 command -v nodenv > /dev/null && eval "$(nodenv init -)"
 command -v python3.7 > /dev/null && export PATH=~/Library/Python/3.7/bin:$PATH
@@ -86,3 +89,5 @@ function show_name(){
 export PROMPT_COMMAND='show_name'
 
 eval "$(fasd --init auto)"
+
+source <(kubectl completion bash)

@@ -5,3 +5,6 @@ alias move-to-lvds1='i3-msg "move workspace to output LVDS1"'
 # alias break="notify-me 'break done, time to work!' 10m"
 # alias work="notify-me 'pomodoro done, time to break!' 30m"
 alias j='z'
+alias diskusage='sudo du -Sah / | sort -rh | head -n 150'
+alias k='kubectl'
+complete -F __start_kubectl k

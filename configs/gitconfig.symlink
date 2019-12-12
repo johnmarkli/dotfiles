@@ -41,6 +41,5 @@
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
-[url "git@gitlab.com:"]
-    insteadOf = https://gitlab.com/
-
+[url "git@gitlab.com:/uhn"]
+    insteadOf = https://gitlab.com/uhn
